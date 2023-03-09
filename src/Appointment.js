@@ -6,7 +6,12 @@ const appointmentTimeOfDay = (startsAt) => {
   return `${h}:${m}`;
 };
 
+const addLog =
+  (comp) =>
+  (...args) => (console.log(args), comp(...args));
 export const Appointment = ({ customer }) => <div>{customer.firstName}</div>;
+const LoggedAppointment = addLog(Appointment);
+
 export const AppointmentsDayView = ({ appointments }) => (
   <div id="appointmentsDayView">
     <ol>
@@ -16,5 +21,10 @@ export const AppointmentsDayView = ({ appointments }) => (
         </li>
       ))}
     </ol>
+    {appointments.length === 0 ? (
+      <p>There are no appointments scheduled for today</p>
+    ) : (
+      <LoggedAppointment {...appointments[0]} />
+    )}
   </div>
 );

@@ -35,8 +35,8 @@ describe("AppointmentsDayView", () => {
   let render;
   const today = new Date();
   const twoAppointments = [
-    { startsAt: today.setHours(12, 0) },
-    { startsAt: today.setHours(13, 0) },
+    { startsAt: today.setHours(12, 0), customer: { firstName: "Ashley" } },
+    { startsAt: today.setHours(13, 0), customer: { firstName: "Jordan" } },
   ];
 
   beforeEach(() => {
@@ -72,5 +72,18 @@ describe("AppointmentsDayView", () => {
     expect(listChildren[0].textContent).toEqual("12:00");
 
     expect(listChildren[1].textContent).toEqual("13:00");
+  });
+
+  it("initially shows a message saying there are no apppointments today", () => {
+    render(<AppointmentsDayView appointments={[]} />);
+    expect(document.body.textContent).toContain(
+      "There are no appointments scheduled for today"
+    );
+  });
+
+  it("selects the first appointment by default", () => {
+    render(<AppointmentsDayView appointments={twoAppointments} />);
+
+    expect(document.body.textContent).toContain("Ashley");
   });
 });
