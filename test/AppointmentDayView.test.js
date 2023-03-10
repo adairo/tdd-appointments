@@ -49,6 +49,18 @@ describe("Apointment", () => {
       expect(document.body.textContent).toContain(dataClient)
     );
   });
+
+  it("shows a heading with the appointment time", () => {
+    render(
+      <Appointment
+        customer={{ firstName: "Adairo" }}
+        startsAt={new Date().setHours(12, 0)}
+      />
+    );
+    const heading = container.querySelector("h1");
+    expect(heading).not.toBeNull();
+    expect(heading.textContent).toContain("12:00");
+  });
 });
 
 describe("AppointmentsDayView", () => {

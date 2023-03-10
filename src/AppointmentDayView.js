@@ -10,8 +10,9 @@ const addLog =
   (comp) =>
   (...args) => (console.log(args), comp(...args));
 
-export const Appointment = ({ customer }) => (
+export const Appointment = ({ customer, startsAt }) => (
   <div>
+    <h1>{appointmentTimeOfDay(startsAt)}</h1>
     {customer.firstName}
     <table>
       <caption>Customer's data</caption>
@@ -38,6 +39,7 @@ const LoggedAppointment = addLog(Appointment);
 
 export const AppointmentsDayView = ({ appointments }) => {
   const [selectedAppointment, setSelectedAppointment] = useState(0);
+  const currentCustomer = appointments[selectedAppointment];
 
   return (
     <div id="appointmentsDayView">
@@ -53,7 +55,10 @@ export const AppointmentsDayView = ({ appointments }) => {
       {appointments.length === 0 ? (
         <p>There are no appointments scheduled for today</p>
       ) : (
-        <Appointment {...appointments[selectedAppointment]} />
+        <LoggedAppointment
+          customer={currentCustomer.customer}
+          startsAt={currentCustomer.startsAt}
+        />
       )}
     </div>
   );
