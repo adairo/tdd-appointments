@@ -20,7 +20,6 @@ export const Appointment = ({ customer }) => (
           <th>lastName</th>
           <th>stylist</th>
           <th>service</th>
-          <th>service</th>
           <th>notes</th>
         </tr>
       </thead>
