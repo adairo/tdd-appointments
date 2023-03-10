@@ -2,7 +2,7 @@ import * as React from "react";
 import ReactDOM from "react-dom/client";
 import { act } from "react-dom/test-utils";
 
-import { Appointment, AppointmentsDayView } from "../src/Appointment";
+import { Appointment, AppointmentsDayView } from "../src/AppointmentDayView";
 
 const renderOnContainer = (container) => (component) =>
   act(() => ReactDOM.createRoot(container).render(component));
@@ -27,6 +27,27 @@ describe("Apointment", () => {
     const customer = { firstName: "Jordan" };
     render(<Appointment customer={customer} />);
     expect(document.body.textContent).toContain("Jordan");
+  });
+
+  it("renders an html table", () => {
+    render(<Appointment customer={{ firstName: "Adairo" }} />);
+    const table = document.querySelector("table");
+    expect(table).not.toBeNull();
+  });
+
+  it("displays all the fields in the table", () => {
+    const customer = {
+      firstName: "Adairo",
+      lastName: "Reyes",
+      stylist: "Alex",
+      service: "10",
+      notes: "let it grow",
+    };
+
+    render(<Appointment customer={customer} />);
+    Object.values(customer).forEach((dataClient) =>
+      expect(document.body.textContent).toContain(dataClient)
+    );
   });
 });
 

@@ -10,7 +10,31 @@ const addLog =
   (comp) =>
   (...args) => (console.log(args), comp(...args));
 
-export const Appointment = ({ customer }) => <div>{customer.firstName}</div>;
+export const Appointment = ({ customer }) => (
+  <div>
+    {customer.firstName}
+    <table>
+      <caption>Customer's data</caption>
+      <thead>
+        <tr>
+          <th>lastName</th>
+          <th>stylist</th>
+          <th>service</th>
+          <th>service</th>
+          <th>notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{customer.lastName}</td>
+          <td>{customer.stylist}</td>
+          <td>{customer.service}</td>
+          <td>{customer.notes}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+);
 const LoggedAppointment = addLog(Appointment);
 
 export const AppointmentsDayView = ({ appointments }) => {
