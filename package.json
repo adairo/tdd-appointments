@@ -7,7 +7,7 @@
     "build": "webpack",
     "format": "prettier --write {src,test}/*",
     "lint": "eslint {src,test}/**/*",
-    "test": "jest"
+    "test": "jest --watchAll"
   },
   "repository": {
     "type": "git",
@@ -41,6 +41,9 @@
     "testEnvironment": "jsdom",
     "globals": {
       "IS_REACT_ACT_ENVIRONMENT": true
-    }
+    },
+    "setupFilesAfterEnv": [
+      "./test/domMatchers.js"
+    ]
   }
 }
