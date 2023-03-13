@@ -262,7 +262,7 @@ describe("AppointmentsDayView", () => {
     );
     const button = elements("button")[1];
     click(button);
-    expect(button.className).toContain("toggled");
+    expect(button).toHaveClass("toggled");
   });
 
   it("does not add toggled class if button is not selected", () => {
@@ -272,6 +272,6 @@ describe("AppointmentsDayView", () => {
       />
     );
     const button = elements("button")[1];
-    expect(button.className).not.toContain("toggled");
+    expect(button).not.toHaveClass("toggled");
   });
 });
