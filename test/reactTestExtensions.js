@@ -20,6 +20,8 @@ export const element = (selector) =>
   document.querySelector(selector);
 
 export const form = () => element("form");
+export const field = (fieldName) =>
+  form().elements[fieldName];
 
 export const elements = (selector) =>
   Array.from(document.querySelectorAll(selector));
