@@ -19,6 +19,8 @@ export const click = (element) =>
 export const element = (selector) =>
   document.querySelector(selector);
 
+export const form = () => element("form");
+
 export const elements = (selector) =>
   Array.from(document.querySelectorAll(selector));
 
