@@ -11,6 +11,10 @@ import {
   container,
   render,
   click,
+  element,
+  elements,
+  textOf,
+  typesOf,
 } from "./reactTestExtensions";
 
 describe("Appointment", () => {
@@ -25,9 +29,7 @@ describe("Appointment", () => {
   });
 
   const appointmentTable = () =>
-    document.querySelector(
-      "#appointmentView > table"
-    );
+    element("#appointmentView > table");
 
   it("renders a table", () => {
     render(<Appointment customer={blankCustomer} />);
@@ -142,9 +144,7 @@ describe("Appointment", () => {
 
   it("renders an h3 element", () => {
     render(<Appointment customer={blankCustomer} />);
-    expect(
-      document.querySelector("h3")
-    ).not.toBeNull();
+    expect(element("h3")).not.toBeNull();
   });
 
   it("renders the time as the heading", () => {
@@ -156,9 +156,9 @@ describe("Appointment", () => {
         startsAt={timestamp}
       />
     );
-    expect(
-      document.querySelector("h3").textContent
-    ).toEqual("Today’s appointment at 09:00");
+    expect(element("h3").textContent).toEqual(
+      "Today’s appointment at 09:00"
+    );
   });
 });
 
@@ -182,16 +182,13 @@ describe("AppointmentsDayView", () => {
   it("renders a div with the right id", () => {
     render(<AppointmentsDayView appointments={[]} />);
     expect(
-      document.querySelector(
-        "div#appointmentsDayView"
-      )
+      element("div#appointmentsDayView")
     ).not.toBeNull();
   });
 
   it("renders an ol element to display appointments", () => {
     render(<AppointmentsDayView appointments={[]} />);
-    const listElement = document.querySelector("ol");
-    expect(listElement).not.toBeNull();
+    expect(element("ol")).not.toBeNull();
   });
 
   it("renders an li for each appointment", () => {
@@ -201,9 +198,7 @@ describe("AppointmentsDayView", () => {
       />
     );
 
-    const listChildren =
-      document.querySelectorAll("ol > li");
-    expect(listChildren).toHaveLength(2);
+    expect(elements("ol > li")).toHaveLength(2);
   });
 
   it("renders the time of each appointment", () => {
@@ -213,14 +208,10 @@ describe("AppointmentsDayView", () => {
       />
     );
 
-    const listChildren =
-      document.querySelectorAll("li");
-    expect(listChildren[0].textContent).toEqual(
-      "12:00"
-    );
-    expect(listChildren[1].textContent).toEqual(
-      "13:00"
-    );
+    expect(textOf(elements("li"))).toEqual([
+      "12:00",
+      "13:00",
+    ]);
   });
 
   it("initially shows a message saying there are no appointments today", () => {
@@ -246,11 +237,10 @@ describe("AppointmentsDayView", () => {
       />
     );
 
-    const buttons =
-      document.querySelectorAll("li > button");
-
-    expect(buttons).toHaveLength(2);
-    expect(buttons[0].type).toEqual("button");
+    expect(typesOf(elements("li > button"))).toEqual([
+      "button",
+      "button",
+    ]);
   });
 
   it("renders another appointment when selected", () => {
@@ -259,8 +249,7 @@ describe("AppointmentsDayView", () => {
         appointments={twoAppointments}
       />
     );
-    const button =
-      document.querySelectorAll("button")[1];
+    const button = elements("button")[1];
     click(button);
     expect(document.body).toContainText("Jordan");
   });
@@ -271,8 +260,7 @@ describe("AppointmentsDayView", () => {
         appointments={twoAppointments}
       />
     );
-    const button =
-      document.querySelectorAll("button")[1];
+    const button = elements("button")[1];
     click(button);
     expect(button.className).toContain("toggled");
   });
@@ -283,8 +271,7 @@ describe("AppointmentsDayView", () => {
         appointments={twoAppointments}
       />
     );
-    const button =
-      document.querySelectorAll("button")[1];
+    const button = elements("button")[1];
     expect(button.className).not.toContain("toggled");
   });
 });
