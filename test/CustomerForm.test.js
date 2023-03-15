@@ -62,7 +62,9 @@ describe("CustomerForm", () => {
       const fieldElement = field(fieldName);
       expect(fieldElement).not.toBeNull();
       expect(fieldElement.tagName).toBe("INPUT");
-      expect(fieldElement.type).toBe("text");
+      expect(fieldElement).toBeInputFieldOfType(
+        "text"
+      );
     });
 
   const itIncludesTheExistingValue = (
