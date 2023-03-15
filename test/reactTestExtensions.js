@@ -41,3 +41,32 @@ export const getFromElement = (key) => (elements) =>
 
 export const textOf = getFromElement("textContent");
 export const typesOf = getFromElement("type");
+
+export const originalValueProperty = (
+  reactElement
+) => {
+  const prototype =
+    Object.getPrototypeOf(reactElement);
+
+  return Object.getOwnPropertyDescriptor(
+    prototype,
+    "value"
+  );
+};
+
+export const submitButton = () =>
+  element("input[type=submit]");
+
+export const change = (target, value) => {
+  originalValueProperty(target).set.call(
+    target,
+    value
+  );
+
+  const event = new Event("change", {
+    target,
+    bubbles: true,
+  });
+
+  act(() => target.dispatchEvent(event));
+};
