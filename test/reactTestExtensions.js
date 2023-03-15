@@ -57,6 +57,9 @@ export const originalValueProperty = (
 export const submitButton = () =>
   element("input[type=submit]");
 
+export const labelFor = (name) =>
+  element(`label[for=${name}]`);
+
 export const change = (target, value) => {
   originalValueProperty(target).set.call(
     target,

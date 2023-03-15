@@ -11,6 +11,7 @@ ReactDOM.createRoot(
     original={{
       firstName: "Adairo",
       lastName: "Reyes",
+      phoneNumber: 12345,
     }}
     onSubmit={(customer) => console.log(customer)}
   />

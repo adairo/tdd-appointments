@@ -15,6 +15,7 @@ import {
   click,
   submit,
   change,
+  labelFor,
 } from "./reactTestExtensions";
 
 import { CustomerForm } from "../src/CustomerForm";
@@ -79,11 +80,10 @@ describe("CustomerForm", () => {
       render(
         <CustomerForm original={blankCustomer} />
       );
-      const label = element(
-        `label[for=${fieldName}]`
+      expect(labelFor(fieldName)).not.toBeNull();
+      expect(labelFor(fieldName)).toContainText(
+        labelText
       );
-      expect(label).not.toBeNull();
-      expect(label).toContainText(labelText);
     });
 
   const itAssignsAnIdThatMatchesTheLabelId = (
@@ -94,6 +94,9 @@ describe("CustomerForm", () => {
         <CustomerForm original={blankCustomer} />
       );
       expect(field(fieldName).id).toBe(fieldName);
+      expect(
+        labelFor(fieldName).getAttribute("for")
+      ).toBe(fieldName);
     });
 
   const itSavesTheExistingValueWhenSubmitted = (
@@ -178,6 +181,4 @@ describe("CustomerForm", () => {
       "4321"
     );
   });
-
-  
 });
